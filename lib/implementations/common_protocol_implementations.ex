@@ -61,6 +61,4 @@ for module <- [
         {:ok, Prioqueue.Protocol.size(prioqueue)}
       end
     end
-
-
 end

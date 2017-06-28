@@ -8,24 +8,30 @@ defmodule Prioqueue do
   to allow for the most efficient implementation for your application.
 
 
-  ## Examples:
+  ## Examples
 
-  iex> pqueue = (
-  iex> Prioqueue.new()
-  iex> |> Prioqueue.insert(10)
-  iex> |> Prioqueue.insert(20)
-  iex> |> Prioqueue.insert(15)
-  iex> |> Prioqueue.insert(100)
-  iex> )
-  #Prioqueue.Implementations.SkewHeap<[10, 15, 20, 100]>
-  iex> Prioqueue.member?(pqueue, 20)
-  true
-  iex> {:ok, {item, pqueue_rest}} = Prioqueue.extract_min(pqueue)
-  iex> item
-  10
-  iex> pqueue_rest
-  #Prioqueue.Implementations.SkewHeap<[15, 20, 100]>
+      iex> pqueue = (
+      iex> Prioqueue.new()
+      iex> |> Prioqueue.insert(10)
+      iex> |> Prioqueue.insert(20)
+      iex> |> Prioqueue.insert(15)
+      iex> |> Prioqueue.insert(100)
+      iex> )
+      #Prioqueue.Implementations.SkewHeap<[10, 15, 20, 100]>
+      iex> Prioqueue.member?(pqueue, 20)
+      true
+      iex> {:ok, {item, pqueue_rest}} = Prioqueue.extract_min(pqueue)
+      iex> item
+      10
+      iex> pqueue_rest
+      #Prioqueue.Implementations.SkewHeap<[15, 20, 100]>
 
+  ## Protocols
+
+      iex> pqueue = Enum.into([1, 2, 3, 10, 5, 2], Prioqueue.new())
+      #Prioqueue.Implementations.SkewHeap<[1, 2, 2, 3, 5, 10]>
+      iex> Enum.map(pqueue, fn x -> x * 2 end)
+      [2, 4, 4, 6, 10, 20]
 
   ## Configuration settings
 
