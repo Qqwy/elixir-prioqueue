@@ -14,6 +14,6 @@ defprotocol Prioqueue.Protocol do
   @spec to_list(prioqueue) :: list()
   def to_list(prioqueue)
 
-  @spec member?(prioqueue) :: boolean
-  def member?(prioqueue)
+  @spec member?(prioqueue, item :: any) :: boolean
+  def member?(prioqueue, item)
 end

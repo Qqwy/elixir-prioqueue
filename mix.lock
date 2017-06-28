@@ -1,0 +1,2 @@
+%{"extractable": {:hex, :extractable, "0.1.1", "769b5378f91918247f8391c14e843632298d9beed5e8b368bafee12af74e245f", [:mix], [], "hexpm"},
+  "insertable": {:hex, :insertable, "0.1.1", "921d801853444d9ea3cebca655d81405635f8b2cf983a5bb7d3009857e154121", [:mix], [], "hexpm"}}

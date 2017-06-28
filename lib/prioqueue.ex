@@ -29,9 +29,9 @@ defmodule Prioqueue do
     implementation.new()
   end
 
-  defdelegate insert(prioqueue, element), to: Prioqueue.Protocol
-  defdelegate extract_min(prioqueue, element), to: Prioqueue.Protocol
-  defdelegate size(prioqueue, element), to: Prioqueue.Protocol
-  defdelegate to_list(prioqueue, element), to: Prioqueue.Protocol
-  defdelegate member?(prioqueue, element), to: Prioqueue.Protocol
+  defdelegate insert(prioqueue, item), to: Prioqueue.Protocol
+  defdelegate extract_min(prioqueue), to: Prioqueue.Protocol
+  defdelegate size(prioqueue), to: Prioqueue.Protocol
+  defdelegate to_list(prioqueue), to: Prioqueue.Protocol
+  defdelegate member?(prioqueue, item), to: Prioqueue.Protocol
 end

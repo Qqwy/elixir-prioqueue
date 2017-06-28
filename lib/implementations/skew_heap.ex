@@ -16,7 +16,7 @@ defmodule Prioqueue.Implementations.SkewHeap do
 
 
   # `contents` is either `nil` or `{value, left_tree, right_tree}`
-  defstruct contents: nil, cmp_fun: &Kernel.<=/2
+  defstruct contents: nil, cmp_fun: &Prioqueue.Helper.cmp/2
 
   def new do
     %SkewHeap{}
@@ -47,6 +47,23 @@ defmodule Prioqueue.Implementations.SkewHeap do
       to_list(res, cmp_fun, [val | acc])
     end
 
+    def member?(%SkewHeap{contents: contents, cmp_fun: cmp_fun}, elem) do
+      member?(contents, elem, cmp_fun)
+    end
+
+    defp member?(nil, elem, _cmp_fun), do: false
+    defp member?({val, left, right}, elem, cmp_fun) do
+      (cmp_fun.(elem, val) == :eq) || member?(left, elem) || member?(right, elem)
+    end
+
+    def size(%SkewHeap{contents: contents}) do
+      calc_size(contents)
+    end
+
+    # TODO Tail recursive?
+    defp calc_size(nil), do: 0
+    defp calc_size({x, left, right}), do: 1 + calc_size(left) + calc_size(right)
+
     defp union(pqueue1 = %SkewHeap{contents: pq1, cmp_fun: cmp_fun}, %SkewHeap{contents: pq2}) do
       %SkewHeap{pqueue1 | contents: union(pq1, pq2, cmp_fun)}
     end
@@ -54,7 +71,7 @@ defmodule Prioqueue.Implementations.SkewHeap do
     defp union(nil, pq2, _), do: pq2
     defp union(pq1, nil, _), do: pq1
     defp union(pq1 = {x1, l1, r1}, pq2 = {x2, l2, r2}, cmp_fun) do
-      if cmp_fun.(x2, x1) do
+      if cmp_fun.(x2, x1) in [:lt, :eq] do
         {x1, union(pq2, r1, cmp_fun), l1}
       else
         {x2, union(pq1, r2, cmp_fun), l2}
