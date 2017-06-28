@@ -24,4 +24,8 @@ for module <- [
         Prioqueue.Protocol.insert(prioqueue, elem)
       end
     end
+
+    defimpl Enumerable, for: module do
+      
+    end
 end

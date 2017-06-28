@@ -7,7 +7,11 @@ defmodule Prioqueue.Mixfile do
       version: "0.1.0",
       elixir: "~> 1.5-rc",
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      deps: deps(),
+      name: "Prioqueue",
+      description: description(),
+      source_url: "https://github.com/Qqwy/elixir-prioqueue",
+      package: package()
     ]
   end
 
@@ -25,6 +29,25 @@ defmodule Prioqueue.Mixfile do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
       {:extractable, "~> 0.1"},
       {:insertable, "~> 0.1"},
+      {:ex_doc, "~> 0.14", only: :dev}
     ]
   end
+
+
+  defp description do
+    """
+    Well-structured Priority Queues for Elixir, offering a common interface with multiple implementations with varying performance guarantees that can be switched in your configuration.
+    """
+  end
+
+  defp package() do
+    [
+      name: :extractable,
+      files: ["lib", "mix.exs", "README*"],
+      maintainers: ["Qqwy/Wiebe-Marten Wijnja"],
+      licenses: ["Apache 2.0"],
+      links: %{"GitHub" => "https://github.com/Qqwy/elixir-prioqueue"}
+    ]
+  end
+
 end
