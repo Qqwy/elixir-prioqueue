@@ -9,6 +9,43 @@ Prioqueue contains well-structured priority queues for Elixir:
 - Multiple implementations with difference performance properties. Decide the best one later on in your configuration settings, after building your application!
 
 
+## Examples
+
+```elixir
+iex> pqueue = (
+iex> Prioqueue.new()
+iex> |> Prioqueue.insert(10)
+iex> |> Prioqueue.insert(20)
+iex> |> Prioqueue.insert(15)
+iex> |> Prioqueue.insert(100)
+iex> )
+#Prioqueue.Implementations.SkewHeap<[10, 15, 20, 100]>
+iex> Prioqueue.member?(pqueue, 20)
+true
+iex> {:ok, {item, pqueue_rest}} = Prioqueue.extract_min(pqueue)
+iex> item
+10
+iex> pqueue_rest
+#Prioqueue.Implementations.SkewHeap<[15, 20, 100]>
+```
+
+## Protocols
+
+```elixir
+iex> pqueue = Enum.into([1, 2, 3, 10, 5, 2], Prioqueue.new())
+#Prioqueue.Implementations.SkewHeap<[1, 2, 2, 3, 5, 10]>
+iex> Enum.map(pqueue, fn x -> x * 2 end)
+[2, 4, 4, 6, 10, 20]
+```
+
+## Configuration settings
+
+The behaviour of Prioqueue can be altered per call by passing options to `new`, or by writing down application-wide configuration options for the application `:prioqueue`:
+
+- `:default_implementation`: The Priority Queue implementation to use.
+- `:default_comparison_function`: The comparison function that should be used to keep the Priority Queue ordered.
+
+
 ## Installation
 
 The package can be installed
