@@ -29,7 +29,8 @@ defmodule Prioqueue do
 
   def new() do
     implementation = Application.get_env(:prioqueue, :default_prioqueue_implementation, Prioqueue.Implementations.SkewHeap)
-    implementation.new()
+    cmp_fun = Application.get_env(:prioqueue, :default_prioqueue_comparison_function, &Prioqueue.Helper.cmp/2)
+    implementation.new(cmp_fun: cmp_fun)
   end
 
   def new(implementation) do

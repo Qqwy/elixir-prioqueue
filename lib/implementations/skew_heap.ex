@@ -18,8 +18,9 @@ defmodule Prioqueue.Implementations.SkewHeap do
   # `contents` is either `nil` or `{value, left_tree, right_tree}`
   defstruct contents: nil, cmp_fun: &Prioqueue.Helper.cmp/2
 
-  def new do
-    %SkewHeap{}
+  def new(opts) do
+    cmp_fun = Keyword.get(opts, :cmp_fun, &Prioqueue.Helper.cmp/2)
+    %SkewHeap{cmp_fun: cmp_fun}
   end
 
   defimpl Prioqueue.Protocol do
