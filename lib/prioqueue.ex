@@ -25,16 +25,27 @@ defmodule Prioqueue do
   10
   iex> pqueue_rest
   #Prioqueue.Implementations.SkewHeap<[15, 20, 100]>
+
+
+  ## Configuration settings
+
+  The behaviour of Prioqueue can be altered per call by passing options to `new`, or by writing down application-wide configuration options for the application `:prioqueue`:
+
+  - `:default_implementation`: The Priority Queue implementation to use.
+  - `:default_comparison_function`: The comparison function that should be used to keep the Priority Queue ordered.
+
   """
 
-  def new() do
-    implementation = Application.get_env(:prioqueue, :default_prioqueue_implementation, Prioqueue.Implementations.SkewHeap)
-    cmp_fun = Application.get_env(:prioqueue, :default_prioqueue_comparison_function, &Prioqueue.Helper.cmp/2)
-    implementation.new(cmp_fun: cmp_fun)
-  end
+  @doc """
+  `new` listens to these options:
 
-  def new(implementation) do
-    implementation.new()
+  - `:implementation`: The Priority Queue implementation to be used. By default, `Prioqueue.Implementation.SkewHeap` is used.
+  - `:cmp_fun`: The comparison function that should be used to keep the Priority Queue ordered. By default, will use `Prioqueue.Helper.cmp/2`, which uses the default Erlang Term Ordering.
+  """
+    def new(opts \\ []) do
+    implementation = Keyword.get(opts, :implementation, Application.get_env(:prioqueue, :default_implementation, Prioqueue.Implementations.SkewHeap))
+    cmp_fun = Keyword.get(opts, :cmp_fun, Application.get_env(:prioqueue, :default__comparison_function, &Prioqueue.Helper.cmp/2))
+    implementation.new(cmp_fun: cmp_fun)
   end
 
   defdelegate insert(prioqueue, item), to: Prioqueue.Protocol
