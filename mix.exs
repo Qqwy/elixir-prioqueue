@@ -5,7 +5,7 @@ defmodule Prioqueue.Mixfile do
     [
       app: :prioqueue,
       version: "0.1.0",
-      elixir: "~> 1.5-rc",
+      elixir: "~> 1.4",
       start_permanent: Mix.env == :prod,
       deps: deps(),
       name: "Prioqueue",
@@ -42,7 +42,7 @@ defmodule Prioqueue.Mixfile do
 
   defp package() do
     [
-      name: :extractable,
+      name: :prioqueue,
       files: ["lib", "mix.exs", "README*"],
       maintainers: ["Qqwy/Wiebe-Marten Wijnja"],
       licenses: ["Apache 2.0"],
