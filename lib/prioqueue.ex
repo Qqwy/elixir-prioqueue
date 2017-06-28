@@ -10,7 +10,7 @@ defmodule Prioqueue do
 
   ## Examples:
 
-  iex> (
+  iex> pqueue = (
   iex> Prioqueue.new()
   iex> |> Prioqueue.insert(10)
   iex> |> Prioqueue.insert(20)
@@ -18,6 +18,13 @@ defmodule Prioqueue do
   iex> |> Prioqueue.insert(100)
   iex> )
   #Prioqueue.Implementations.SkewHeap<[10, 15, 20, 100]>
+  iex> Prioqueue.member?(pqueue, 20)
+  true
+  iex> {:ok, {item, pqueue_rest}} = Prioqueue.extract_min(pqueue)
+  iex> item
+  10
+  iex> pqueue_rest
+  #Prioqueue.Implementations.SkewHeap<[15, 20, 100]>
   """
 
   def new() do
