@@ -45,6 +45,14 @@ The behaviour of Prioqueue can be altered per call by passing options to `new`, 
 - `:default_implementation`: The Priority Queue implementation to use.
 - `:default_comparison_function`: The comparison function that should be used to keep the Priority Queue ordered.
 
+## Available Implementations
+
+Right now, in the pre-1.0 version, only `SkewHeap` (relatively efficient, amortized running time, simple implementation) is available.
+
+Planned are:
+
+- Pairing Heap (very efficient, amortized running time)
+- Binomial Heap (quite efficient, real-time)
 
 ## Installation
 
