@@ -34,12 +34,4 @@ defmodule Prioqueue do
   defdelegate size(prioqueue, element), to: Prioqueue.Protocol
   defdelegate to_list(prioqueue, element), to: Prioqueue.Protocol
   defdelegate member?(prioqueue, element), to: Prioqueue.Protocol
-
-  # def insert(prioqueue = %prioqueue_impl{}, element) do
-  #   prioqueue_impl.insert(prioqueue, element)
-  # end
-
-  # def extract_min(prioqueue = %prioqueue_impl{}, element) do
-  #   prioqueue_impl.extract_min(prioqueue, element)
-  # end
 end

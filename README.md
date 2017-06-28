@@ -1,6 +1,10 @@
 # Prioqueue
 
-**TODO: Add description**
+Prioqueue contains well-structured priority queues for Elixir:
+
+- A single, public interface.
+- Multiple implementations with difference performance properties. Decide the best one later on in your configuration settings, after building your application!
+
 
 ## Installation
 
