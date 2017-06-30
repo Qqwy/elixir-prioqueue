@@ -5,7 +5,7 @@ defmodule Prioqueue.Helper do
   """
   def cmp(a, b) when a < b, do: :lt
   def cmp(a, b) when a == b, do: :eq
-  def cmp(a, b), do: :gt
+  def cmp(_a, _b), do: :gt
 
   @doc """
   Compares two items but returns the inverse result,

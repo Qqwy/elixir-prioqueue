@@ -47,11 +47,11 @@ The behaviour of Prioqueue can be altered per call by passing options to `new`, 
 
 ## Available Implementations
 
-Right now, in the pre-1.0 version, only `SkewHeap` (relatively efficient, amortized running time, simple implementation) is available.
+- **SkewHeap** (The default): Relatively efficient, simple implementation, amortized running time.
+- **PairingHeap**: Very efficient, amortized running time.
 
 Planned are:
 
-- Pairing Heap (very efficient, amortized running time)
 - Binomial Heap (quite efficient, real-time)
 
 ## Installation
