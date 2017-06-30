@@ -16,7 +16,11 @@ defmodule Prioqueue.Implementations.PairingHeap do
   # pairing_heap: nil | {val, [pairing_heap]}
   defstruct contents: nil, cmp_fun: &Prioqueue.Helper.cmp/2
 
-  def empty(opts) do
+  # FunLand Behaviours, and autogenerates Enumerable and Collectable protocol definitions.
+  use FunLand.Combinable
+  use FunLand.Reducable
+
+  def empty(opts \\ []) do
     cmp_fun = Keyword.get(opts, :cmp_fun, &Prioqueue.Helper.cmp/2)
     %PairingHeap{cmp_fun: cmp_fun}
   end
@@ -35,6 +39,15 @@ defmodule Prioqueue.Implementations.PairingHeap do
       {x1, [heap2 | ts1]}
     else
       {x2, [heap1 | ts2]}
+    end
+  end
+
+  def reduce(prioqueue, acc, fun) do
+    case Prioqueue.Protocol.extract_min(prioqueue) do
+      {:ok, {item, rest}} ->
+        reduce(rest, fun.(acc, item), fun)
+      :error ->
+        acc
     end
   end
 

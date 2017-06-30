@@ -14,11 +14,14 @@ defmodule Prioqueue.Implementations.SkewHeap do
   More information about Skew Heaps can be found in [Issue #16 of the Monad.Reader](https://themonadreader.files.wordpress.com/2010/05/issue16.pdf).
   """
 
-
   # `contents` is either `nil` or `{value, left_tree, right_tree}`
   defstruct contents: nil, cmp_fun: &Prioqueue.Helper.cmp/2
 
-  def empty(opts) do
+  # FunLand Behaviours, and autogenerates Enumerable and Collectable protocol definitions.
+  use FunLand.Combinable
+  use FunLand.Reducable
+
+  def empty(opts \\ []) do
     cmp_fun = Keyword.get(opts, :cmp_fun, &Prioqueue.Helper.cmp/2)
     %SkewHeap{cmp_fun: cmp_fun}
   end
@@ -36,6 +39,15 @@ defmodule Prioqueue.Implementations.SkewHeap do
       {x1, combine(heap2, r1, cmp_fun), l1}
     else
       {x2, combine(heap1, r2, cmp_fun), l2}
+    end
+  end
+
+  def reduce(prioqueue, acc, fun) do
+    case Prioqueue.Protocol.extract_min(prioqueue) do
+      {:ok, {item, rest}} ->
+        reduce(rest, fun.(acc, item), fun)
+      :error ->
+        acc
     end
   end
 
