@@ -41,6 +41,8 @@ defmodule PrioqueueTest do
       assert item == 3
       {:ok, {item, prioqueue}} = Prioqueue.extract_min(prioqueue)
       assert item == 4
+
+      assert Prioqueue.extract_min(prioqueue) == :error
     end
 
     test "#{impl} size" do
