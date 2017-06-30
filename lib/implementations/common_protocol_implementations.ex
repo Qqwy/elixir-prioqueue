@@ -2,7 +2,8 @@
 # that can be defined for multiple Prioqueue implementation structures at once.
 
 for module <- [
-      Prioqueue.Implementations.SkewHeap
+      Prioqueue.Implementations.SkewHeap,
+      Prioqueue.Implementations.PairingHeap
     ] do
 
     defimpl Inspect, for: module do

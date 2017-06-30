@@ -43,7 +43,7 @@ defmodule Prioqueue.Implementations.PairingHeap do
       %PairingHeap{pqueue | contents: {item, []}}
     end
     def insert(pqueue = %PairingHeap{contents: heap1, cmp_fun: cmp_fun}, item) do
-      %PairingHeap{pqueue | contents: PairingHeap.combine(heap1, {item, nil, nil}, cmp_fun)}
+      %PairingHeap{pqueue | contents: PairingHeap.combine(heap1, {item, []}, cmp_fun)}
     end
 
     def extract_min(%PairingHeap{contents: nil}), do: :error
@@ -62,8 +62,8 @@ defmodule Prioqueue.Implementations.PairingHeap do
     end
 
     defp to_list(nil, _cmp_fun, acc), do: acc
-    defp to_list({val, left, right}, cmp_fun, acc) do
-      res = PairingHeap.combine(left, right, cmp_fun)
+    defp to_list({val, ts}, cmp_fun, acc) do
+      res = meld_children(ts, cmp_fun)
       to_list(res, cmp_fun, [val | acc])
     end
 
@@ -82,6 +82,7 @@ defmodule Prioqueue.Implementations.PairingHeap do
 
     # TODO Tail recursive using zipper?
     defp calc_size(nil), do: 0
-    defp calc_size({_, left, right}), do: 1 + calc_size(left) + calc_size(right)
+    defp calc_size({_, ts}), do: 1 + (Enum.map(ts, &calc_size(&1)) |> Enum.sum())
+    # defp calc_size({_, left, right}), do: 1 + calc_size(left) + calc_size(right)
   end
 end
