@@ -62,7 +62,7 @@ by adding `prioqueue` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:prioqueue, "~> 0.1.0"}
+    {:prioqueue, "~> 0.2.0"}
   ]
 end
 ```
