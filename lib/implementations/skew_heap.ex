@@ -65,6 +65,10 @@ defmodule Prioqueue.Implementations.SkewHeap do
       {:ok, {val, result_pqueue}}
     end
 
+    def peek_min(%SkewHeap{contents: nil}), do: :error
+    def peek_min(%SkewHeap{contents: {val, _, _}}), do: {:ok, val}
+
+
     def to_list(%SkewHeap{contents: heap1, cmp_fun: cmp_fun}) do
       to_list(heap1, cmp_fun, [])
       |> :lists.reverse

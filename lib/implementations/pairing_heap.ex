@@ -65,6 +65,9 @@ defmodule Prioqueue.Implementations.PairingHeap do
       {:ok, {val, result_pqueue}}
     end
 
+    def peek_min(%PairingHeap{contents: nil}), do: :error
+    def peek_min(%PairingHeap{contents: {val, _}}), do: {:ok, val}
+
     defp meld_children([], _cmp_fun), do: nil
     defp meld_children([single_heap], _cmp_fun), do: single_heap
     defp meld_children([t1, t2 | ts], cmp_fun), do: PairingHeap.combine(PairingHeap.combine(t1, t2, cmp_fun), meld_children(ts, cmp_fun), cmp_fun)

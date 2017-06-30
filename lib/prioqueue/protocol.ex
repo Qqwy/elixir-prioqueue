@@ -23,6 +23,18 @@ defprotocol Prioqueue.Protocol do
   @spec extract_min(prioqueue) :: {:ok, {item :: any, prioqueue}} | :error
   def extract_min(prioqueue)
 
+
+  @doc """
+  Peeks at the current minimum item from the Priority Queue,
+  according to the ordering introduced by the Priority Queue's `cmp_fun`.
+
+  Runs in O(1).
+
+  Returns `{:ok, item}`, or `:error` if the priority queue is empty.
+  """
+  @spec peek_min(Prioqueue.t) :: {:ok, item :: any} | :error
+  def peek_min(prioqueue)
+
   @doc """
   Returns the number of elements currently stored in the Priority Queue.
   """
