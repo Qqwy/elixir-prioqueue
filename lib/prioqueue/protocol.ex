@@ -8,9 +8,8 @@ defprotocol Prioqueue.Protocol do
 
   Runs in O(log n).
   """
-  @spec insert(prioqueue, item :: any) :: {:ok, prioqueue} | :error
+  @spec insert(prioqueue, item :: any) :: prioqueue
   def insert(prioqueue, item)
-
 
   @doc """
   Extracts the current minimum from the Priority Queue,

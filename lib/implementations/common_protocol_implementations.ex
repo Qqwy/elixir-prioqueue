@@ -22,7 +22,7 @@ for module <- [
 
     defimpl Insertable, for: module do
       def insert(prioqueue, elem) do
-        Prioqueue.Protocol.insert(prioqueue, elem)
+        {:ok, Prioqueue.Protocol.insert(prioqueue, elem)}
       end
     end
 
