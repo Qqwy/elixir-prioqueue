@@ -57,13 +57,43 @@ defmodule Prioqueue do
     implementation.empty(cmp_fun: cmp_fun)
   end
 
+  @doc """
+  Inserts `item` at the correct ordering place inside `prioqueue`,
+
+  according to the ordering introduced by the Priority Queue's `cmp_fun`.
+
+  Runs in O(log n).
+  """
+  @spec insert(prioqueue, item :: any) :: {:ok, prioqueue} | :error
   defdelegate insert(prioqueue, item), to: Prioqueue.Protocol
+
+  @doc """
+  Extracts the current minimum from the Priority Queue,
+  according to the ordering introduced by the Priority Queue's `cmp_fun`.
+
+  Runs in O(log n).
+
+  Returns `{:ok, {item, priority_queue_without_item}}`, or `:error` if the priority queue is empty.
+  """
+  @spec extract_min(prioqueue) :: {:ok, {item :: any, prioqueue}} | :error
   defdelegate extract_min(prioqueue), to: Prioqueue.Protocol
+
+  @doc """
+  Variant of extract_min/1 that raises on failure (when the priority queue is empty).
+  """
   def extract_min!(prioqueue) do
     {:ok, result} = extract_min(prioqueue)
     result
   end
 
+  @doc """
+  Peeks at the current minimum item from the Priority Queue,
+  according to the ordering introduced by the Priority Queue's `cmp_fun`.
+
+  Runs in O(log n).
+
+  Returns `{:ok, item}`, or `:error` if the priority queue is empty.
+  """
   def peek_min(prioqueue) do
     case extract_min(prioqueue) do
       {:ok, {item, _}} -> {:ok, item}
@@ -71,13 +101,37 @@ defmodule Prioqueue do
     end
   end
 
+  @doc """
+  Variant of peek_min/1 that raises on failure (when the priority queue is empty).
+  """
   def peek_min!(prioqueue) do
     {:ok, item} = peek_min(prioqueue)
     item
   end
 
+  @doc """
+  Returns the number of elements currently stored in the Priority Queue.
+  """
   defdelegate size(prioqueue), to: Prioqueue.Protocol
+
+  @doc """
+  Returns the Priority Queue in list form.
+
+  Note that the first-to-be-extracted element appears as the head of the list.
+  """
   defdelegate to_list(prioqueue), to: Prioqueue.Protocol
+
+  @doc """
+  Returns `true` if data equal to `item` is inside of `prioqueue`,
+
+  according to the result of calling the priority queue's comparison function.
+  """
   defdelegate member?(prioqueue, item), to: Prioqueue.Protocol
+
+  @doc """
+  Returns `true` if (and only if) the Priority Queue is empty.
+
+  This is a lot faster than checking if the size is nonzero.
+  """
   defdelegate empty?(prioqueue), to: Prioqueue.Protocol
 end
