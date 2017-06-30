@@ -56,6 +56,21 @@ defmodule Prioqueue do
 
   defdelegate insert(prioqueue, item), to: Prioqueue.Protocol
   defdelegate extract_min(prioqueue), to: Prioqueue.Protocol
+  def extract_min!(prioqueue) do
+    {:ok, result} = extract_min(prioqueue)
+    result
+  end
+  def peek_min(prioqueue) do
+    case extract_min(prioqueue) do
+      {:ok, {item, _}} -> {:ok, item}
+      other -> other
+    end
+  end
+  def peek_min!(prioqueue) do
+    {:ok, item} = peek_min(prioqueue)
+    item
+  end
+
   defdelegate size(prioqueue), to: Prioqueue.Protocol
   defdelegate to_list(prioqueue), to: Prioqueue.Protocol
   defdelegate member?(prioqueue, item), to: Prioqueue.Protocol
