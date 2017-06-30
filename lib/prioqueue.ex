@@ -79,5 +79,5 @@ defmodule Prioqueue do
   defdelegate size(prioqueue), to: Prioqueue.Protocol
   defdelegate to_list(prioqueue), to: Prioqueue.Protocol
   defdelegate member?(prioqueue, item), to: Prioqueue.Protocol
-  defdelegate empty?(prioqueue, item), to: Prioqueue.Protocol
+  defdelegate empty?(prioqueue), to: Prioqueue.Protocol
 end
