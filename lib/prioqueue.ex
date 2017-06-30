@@ -64,7 +64,7 @@ defmodule Prioqueue do
 
   Runs in O(log n).
   """
-  @spec insert(prioqueue, item :: any) :: {:ok, prioqueue} | :error
+  @spec insert(Prioqueue.t, item :: any) :: {:ok, prioqueue} | :error
   defdelegate insert(prioqueue, item), to: Prioqueue.Protocol
 
   @doc """
@@ -75,12 +75,13 @@ defmodule Prioqueue do
 
   Returns `{:ok, {item, priority_queue_without_item}}`, or `:error` if the priority queue is empty.
   """
-  @spec extract_min(prioqueue) :: {:ok, {item :: any, prioqueue}} | :error
+  @spec extract_min(Prioqueue.t) :: {:ok, {item :: any, prioqueue}} | :error
   defdelegate extract_min(prioqueue), to: Prioqueue.Protocol
 
   @doc """
   Variant of extract_min/1 that raises on failure (when the priority queue is empty).
   """
+  @spec extract_min!(Prioqueue.t) :: {item :: any, prioqueue}
   def extract_min!(prioqueue) do
     {:ok, result} = extract_min(prioqueue)
     result
@@ -94,6 +95,7 @@ defmodule Prioqueue do
 
   Returns `{:ok, item}`, or `:error` if the priority queue is empty.
   """
+  @spec peek_min(Prioqueue.t) :: {:ok, item :: any} | :error
   def peek_min(prioqueue) do
     case extract_min(prioqueue) do
       {:ok, {item, _}} -> {:ok, item}
@@ -104,6 +106,7 @@ defmodule Prioqueue do
   @doc """
   Variant of peek_min/1 that raises on failure (when the priority queue is empty).
   """
+  @spec peek_min!(Prioqueue.t) :: any
   def peek_min!(prioqueue) do
     {:ok, item} = peek_min(prioqueue)
     item
@@ -112,6 +115,7 @@ defmodule Prioqueue do
   @doc """
   Returns the number of elements currently stored in the Priority Queue.
   """
+  @spec size(prioqueue) :: non_neg_integer
   defdelegate size(prioqueue), to: Prioqueue.Protocol
 
   @doc """
@@ -119,6 +123,7 @@ defmodule Prioqueue do
 
   Note that the first-to-be-extracted element appears as the head of the list.
   """
+  @spec to_list(prioqueue) :: list()
   defdelegate to_list(prioqueue), to: Prioqueue.Protocol
 
   @doc """
@@ -126,6 +131,7 @@ defmodule Prioqueue do
 
   according to the result of calling the priority queue's comparison function.
   """
+  @spec member?(prioqueue, item :: any) :: boolean
   defdelegate member?(prioqueue, item), to: Prioqueue.Protocol
 
   @doc """
@@ -133,5 +139,6 @@ defmodule Prioqueue do
 
   This is a lot faster than checking if the size is nonzero.
   """
+  @spec empty?(prioqueue) :: boolean
   defdelegate empty?(prioqueue), to: Prioqueue.Protocol
 end
