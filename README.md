@@ -13,7 +13,7 @@ Prioqueue contains well-structured priority queues for Elixir:
 
 ```elixir
 iex> pqueue = (
-iex> Prioqueue.new()
+iex> Prioqueue.empty()
 iex> |> Prioqueue.insert(10)
 iex> |> Prioqueue.insert(20)
 iex> |> Prioqueue.insert(15)
