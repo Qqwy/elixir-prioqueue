@@ -33,32 +33,42 @@ defmodule Prioqueue do
   The various Prioqueue Implementations implement the following protocols:
 
 
-  - Elixir's `Collectable`, which allows transforming a collection into a Prioqueue.
+  ### `Collectable`
+
+  which allows transforming a collection into a Prioqueue.
 
       iex> Enum.into([1,2,3,4], Prioqueue.empty())
       #Prioqueue.Implementations.SkewHeap<[1, 2, 3, 4]>
 
-  - Elixir's `Enumerable`, which allows transforming a Prioqueue into another collection.
+  ### `Enumerable`
+
+  which allows transforming a Prioqueue into another collection.
 
       iex> pqueue = Enum.into([1, 2, 3, 10, 5, 2], Prioqueue.empty())
       #Prioqueue.Implementations.SkewHeap<[1, 2, 2, 3, 5, 10]>
       iex> Enum.map(pqueue, fn x -> x * 2 end)
       [2, 4, 4, 6, 10, 20]
 
-  - `FunLand.Reducable`, which allows the reduction of a Prioqueue into some other value.
+  ### `FunLand.Reducable`
+
+  which allows the reduction of a Prioqueue into some other value.
 
       iex> pqueue = Enum.into([1, 2, 3, 10, 5, 2], Prioqueue.empty())
       iex> FunLand.Reducable.reduce(pqueue, 0, fn acc, x -> acc + x end)
       23
 
-  - `FunLand.Combinable`, which allows to merge two Prioqueues together.
+  ### `FunLand.Combinable`
+
+  which allows to merge two Prioqueues together.
 
       iex> pqueue = Enum.into([1, 3, 5], Prioqueue.empty())
       iex> pqueue2 = Enum.into([1, 2, 3, 4], Prioqueue.empty())
       iex> FunLand.Combinable.combine(pqueue, pqueue2)
       #Prioqueue.Implementations.SkewHeap<[1, 1, 2, 3, 3, 4, 5]>
 
-  - `Extractable`, which allows extracting a single element from the Prioqueue.
+  ### `Extractable`
+
+  which allows extracting a single element from the Prioqueue.
 
       iex> Extractable.extract(Prioqueue.empty())
       :error
@@ -71,7 +81,9 @@ defmodule Prioqueue do
       #Prioqueue.Implementations.SkewHeap<[3, 5]>
 
 
-  - `Insertable`, which allows inserting a single element into the Prioqueue.
+  ### `Insertable`
+
+  which allows inserting a single element into the Prioqueue.
 
 
       iex> {:ok, pqueue} = Insertable.insert(Prioqueue.empty(), 4)
