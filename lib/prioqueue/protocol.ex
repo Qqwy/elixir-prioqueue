@@ -1,7 +1,6 @@
 defprotocol Prioqueue.Protocol do
   @type prioqueue :: t
 
-
   @spec insert(prioqueue, item :: any) :: {:ok, prioqueue} | :error
   def insert(prioqueue, item)
 
@@ -16,4 +15,7 @@ defprotocol Prioqueue.Protocol do
 
   @spec member?(prioqueue, item :: any) :: boolean
   def member?(prioqueue, item)
+
+  @spec empty?(prioqueue) :: boolean
+  def empty?(prioqueue)
 end

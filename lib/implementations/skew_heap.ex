@@ -18,7 +18,7 @@ defmodule Prioqueue.Implementations.SkewHeap do
   # `contents` is either `nil` or `{value, left_tree, right_tree}`
   defstruct contents: nil, cmp_fun: &Prioqueue.Helper.cmp/2
 
-  def new(opts) do
+  def empty(opts) do
     cmp_fun = Keyword.get(opts, :cmp_fun, &Prioqueue.Helper.cmp/2)
     %SkewHeap{cmp_fun: cmp_fun}
   end
@@ -80,5 +80,8 @@ defmodule Prioqueue.Implementations.SkewHeap do
     # TODO Tail recursive using zipper?
     defp calc_size(nil), do: 0
     defp calc_size({_, left, right}), do: 1 + calc_size(left) + calc_size(right)
+
+    def empty?(%SkewHeap{contents: nil}), do: true
+    def empty?(%SkewHeap{}), do: false
   end
 end

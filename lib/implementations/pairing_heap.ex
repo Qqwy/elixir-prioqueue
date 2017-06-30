@@ -16,7 +16,7 @@ defmodule Prioqueue.Implementations.PairingHeap do
   # pairing_heap: nil | {val, [pairing_heap]}
   defstruct contents: nil, cmp_fun: &Prioqueue.Helper.cmp/2
 
-  def new(opts) do
+  def empty(opts) do
     cmp_fun = Keyword.get(opts, :cmp_fun, &Prioqueue.Helper.cmp/2)
     %PairingHeap{cmp_fun: cmp_fun}
   end
@@ -83,6 +83,8 @@ defmodule Prioqueue.Implementations.PairingHeap do
     # TODO Tail recursive using zipper?
     defp calc_size(nil), do: 0
     defp calc_size({_, ts}), do: 1 + (Enum.map(ts, &calc_size(&1)) |> Enum.sum())
-    # defp calc_size({_, left, right}), do: 1 + calc_size(left) + calc_size(right)
+
+    def empty?(%PairingHeap{contents: nil}), do: true
+    def empty?(%PairingHeap{}), do: false
   end
 end
