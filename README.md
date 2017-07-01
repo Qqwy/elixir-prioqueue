@@ -70,3 +70,7 @@ end
 The docs can
 be found at [https://hexdocs.pm/prioqueue](https://hexdocs.pm/prioqueue).
 
+## Changelog
+
+- 0.2.5 Improving Inspect.
+- 0.2 Implementation of new Extractable and Insertable protocols.

@@ -9,8 +9,8 @@ for module <- [
     defimpl Inspect, for: module do
       import Inspect.Algebra
 
-      def inspect(prioqueue, _opts) do
-        concat ["##{inspect(@for)}<", inspect(Prioqueue.Protocol.to_list(prioqueue)) ,">"]
+      def inspect(prioqueue, opts) do
+        concat ["##{inspect(@for)}<", Inspect.List.inspect(Prioqueue.Protocol.to_list(prioqueue), opts) ,">"]
       end
     end
 

@@ -115,6 +115,17 @@ defmodule Prioqueue do
   end
 
   @doc """
+  Creates a new Priority Queue from the given `enumerable`.
+  `options` are the same as with `empty`:
+
+  - `:implementation`: The Priority Queue implementation to be used. By default, `Prioqueue.Implementation.SkewHeap` is used.
+  - `:cmp_fun`: The comparison function that should be used to keep the Priority Queue ordered. By default, will use `Prioqueue.Helper.cmp/2`, which uses the default Erlang Term Ordering.
+  """
+  def new(enumerable \\ [], options \\ []) do
+    Enum.into(enumerable, empty(options))
+  end
+
+  @doc """
   Inserts `item` at the correct ordering place inside `prioqueue`,
 
   according to the ordering introduced by the Priority Queue's `cmp_fun`.
