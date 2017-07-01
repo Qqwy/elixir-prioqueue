@@ -4,7 +4,7 @@ defmodule Prioqueue.Mixfile do
   def project do
     [
       app: :prioqueue,
-      version: "0.2.2",
+      version: "0.2.3",
       elixir: "~> 1.2",
       start_permanent: Mix.env == :prod,
       deps: deps(),
@@ -29,7 +29,7 @@ defmodule Prioqueue.Mixfile do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
       {:extractable, "~> 0.1"},
       {:insertable, "~> 0.1"},
-      {:fun_land, "~> 0.8.0"},
+      {:fun_land, "~> 0.9.0"},
       {:ex_doc, "~> 0.14", only: :dev}
     ]
   end
