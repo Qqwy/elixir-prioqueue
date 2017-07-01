@@ -46,7 +46,7 @@ defmodule Prioqueue.Implementations.SkewHeap do
     case Prioqueue.Protocol.extract_min(prioqueue) do
       {:ok, {item, rest}} ->
         reduce(rest, fun.(acc, item), fun)
-      :error ->
+      {:error, :empty} ->
         acc
     end
   end
@@ -59,13 +59,13 @@ defmodule Prioqueue.Implementations.SkewHeap do
       %SkewHeap{pqueue | contents: SkewHeap.combine(heap1, {item, nil, nil}, cmp_fun)}
     end
 
-    def extract_min(%SkewHeap{contents: nil}), do: :error
+    def extract_min(%SkewHeap{contents: nil}), do: {:error, :empty}
     def extract_min(pqueue = %SkewHeap{contents: {val, left, right}, cmp_fun: cmp_fun}) do
       result_pqueue = %SkewHeap{pqueue | contents: SkewHeap.combine(left, right, cmp_fun)}
       {:ok, {val, result_pqueue}}
     end
 
-    def peek_min(%SkewHeap{contents: nil}), do: :error
+    def peek_min(%SkewHeap{contents: nil}), do: {:error, :empty}
     def peek_min(%SkewHeap{contents: {val, _, _}}), do: {:ok, val}
 
 

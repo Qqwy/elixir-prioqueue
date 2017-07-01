@@ -30,7 +30,7 @@ defmodule PrioqueueTest do
 
     test "#{impl} extract_min" do
       prioqueue = Prioqueue.empty(implementation: unquote(impl))
-      assert Prioqueue.extract_min(prioqueue) == :error
+      assert Prioqueue.extract_min(prioqueue) == {:error, :empty}
 
       prioqueue = simple_prioqueue(unquote(impl))
       {:ok, {item, prioqueue}} = Prioqueue.extract_min(prioqueue)
@@ -42,7 +42,7 @@ defmodule PrioqueueTest do
       {:ok, {item, prioqueue}} = Prioqueue.extract_min(prioqueue)
       assert item == 4
 
-      assert Prioqueue.extract_min(prioqueue) == :error
+      assert Prioqueue.extract_min(prioqueue) == {:error, :empty}
     end
 
     test "#{impl} size" do

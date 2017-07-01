@@ -71,7 +71,7 @@ defmodule Prioqueue do
   which allows extracting a single element from the Prioqueue.
 
       iex> Extractable.extract(Prioqueue.empty())
-      :error
+      {:error, :empty}
 
       iex> pqueue = Enum.into([1, 3, 5], Prioqueue.empty())
       iex> {:ok, {item, pqueue_rest}} = Extractable.extract(pqueue)
@@ -130,9 +130,9 @@ defmodule Prioqueue do
 
   Runs in O(log n).
 
-  Returns `{:ok, {item, priority_queue_without_item}}`, or `:error` if the priority queue is empty.
+  Returns `{:ok, {item, priority_queue_without_item}}`, or `{:error, :empty}` if the priority queue is empty.
   """
-  @spec extract_min(Prioqueue.t) :: {:ok, {item :: any, Prioqueue.t}} | :error
+  @spec extract_min(Prioqueue.t) :: {:ok, {item :: any, Prioqueue.t}} | {:error, :empty}
   defdelegate extract_min(prioqueue), to: Prioqueue.Protocol
 
   @doc """
@@ -150,9 +150,9 @@ defmodule Prioqueue do
 
   Runs in O(1).
 
-  Returns `{:ok, item}`, or `:error` if the priority queue is empty.
+  Returns `{:ok, item}`, or `{:error, :empty}` if the priority queue is empty.
   """
-  @spec peek_min(Prioqueue.t) :: {:ok, item :: any} | :error
+  @spec peek_min(Prioqueue.t) :: {:ok, item :: any} | {:error, :empty}
   defdelegate peek_min(prioqueue), to: Prioqueue.Protocol
 
   @doc """

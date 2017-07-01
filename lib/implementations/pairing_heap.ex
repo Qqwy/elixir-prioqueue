@@ -46,7 +46,7 @@ defmodule Prioqueue.Implementations.PairingHeap do
     case Prioqueue.Protocol.extract_min(prioqueue) do
       {:ok, {item, rest}} ->
         reduce(rest, fun.(acc, item), fun)
-      :error ->
+      {:error, :empty} ->
         acc
     end
   end
@@ -59,13 +59,13 @@ defmodule Prioqueue.Implementations.PairingHeap do
       %PairingHeap{pqueue | contents: PairingHeap.combine(heap1, {item, []}, cmp_fun)}
     end
 
-    def extract_min(%PairingHeap{contents: nil}), do: :error
+    def extract_min(%PairingHeap{contents: nil}), do: {:error, :empty}
     def extract_min(pqueue = %PairingHeap{contents: {val, ts}, cmp_fun: cmp_fun}) do
       result_pqueue = %PairingHeap{pqueue | contents: meld_children(ts, cmp_fun)}
       {:ok, {val, result_pqueue}}
     end
 
-    def peek_min(%PairingHeap{contents: nil}), do: :error
+    def peek_min(%PairingHeap{contents: nil}), do: {:error, :empty}
     def peek_min(%PairingHeap{contents: {val, _}}), do: {:ok, val}
 
     defp meld_children([], _cmp_fun), do: nil

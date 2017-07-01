@@ -17,9 +17,9 @@ defprotocol Prioqueue.Protocol do
 
   Runs in O(log n).
 
-  Returns `{:ok, {item, priority_queue_without_item}}`, or `:error` if the priority queue is empty.
+  Returns `{:ok, {item, priority_queue_without_item}}`, or `{:error, :empty}` if the priority queue is empty.
   """
-  @spec extract_min(prioqueue) :: {:ok, {item :: any, prioqueue}} | :error
+  @spec extract_min(prioqueue) :: {:ok, {item :: any, prioqueue}} | {:error, :empty}
   def extract_min(prioqueue)
 
 
@@ -29,9 +29,9 @@ defprotocol Prioqueue.Protocol do
 
   Runs in O(1).
 
-  Returns `{:ok, item}`, or `:error` if the priority queue is empty.
+  Returns `{:ok, item}`, or `{:error, :empty}` if the priority queue is empty.
   """
-  @spec peek_min(Prioqueue.t) :: {:ok, item :: any} | :error
+  @spec peek_min(Prioqueue.t) :: {:ok, item :: any} | {:error, :empty}
   def peek_min(prioqueue)
 
   @doc """

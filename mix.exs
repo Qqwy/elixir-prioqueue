@@ -27,8 +27,8 @@ defmodule Prioqueue.Mixfile do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
-      {:extractable, "~> 0.1"},
-      {:insertable, "~> 0.1"},
+      {:extractable, "~> 0.2"},
+      {:insertable, "~> 0.2"},
       {:fun_land, "~> 0.9.0"},
       {:ex_doc, "~> 0.14", only: :dev}
     ]

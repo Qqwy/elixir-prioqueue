@@ -49,7 +49,7 @@ for module <- [
         case Prioqueue.Protocol.extract_min(prioqueue) do
           {:ok, {item, prioqueue}} ->
             reduce(prioqueue, fun.(item, acc), fun)
-          :error ->
+          {:error, :empty} ->
             {:done, acc}
         end
       end
