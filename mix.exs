@@ -5,7 +5,7 @@ defmodule Prioqueue.Mixfile do
     [
       app: :prioqueue,
       version: "0.2.6",
-      elixir: "~> 1.2",
+      elixir: "~> 1.3",
       start_permanent: Mix.env == :prod,
       deps: deps(),
       name: "Prioqueue",
