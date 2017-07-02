@@ -55,7 +55,7 @@ for module <- [
       end
 
       def member?(prioqueue, item) do
-        Prioqueue.Protocol.member?(prioqueue, item)
+        {:ok, Prioqueue.Protocol.member?(prioqueue, item)}
       end
 
       def count(prioqueue) do
