@@ -110,7 +110,7 @@ defmodule Prioqueue do
   """
   def empty(opts \\ []) do
     implementation = Keyword.get(opts, :implementation, Application.get_env(:prioqueue, :default_implementation, Prioqueue.Implementations.SkewHeap))
-    cmp_fun = Keyword.get(opts, :cmp_fun, Application.get_env(:prioqueue, :default__comparison_function, &Prioqueue.Helper.cmp/2))
+    cmp_fun = Keyword.get(opts, :cmp_fun, Application.get_env(:prioqueue, :default_comparison_function, &Prioqueue.Helper.cmp/2))
     implementation.empty(cmp_fun: cmp_fun)
   end
 
